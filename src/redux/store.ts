@@ -1,9 +1,8 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-
-const rootReducer = combineReducers({});
+import { configureStore } from "@reduxjs/toolkit";
+import posters from "./posters";
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: { posters },
 });
 
 export type RootState = ReturnType<typeof store.getState>;
