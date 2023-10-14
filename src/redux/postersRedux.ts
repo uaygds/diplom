@@ -28,7 +28,7 @@ export interface ForCharacters {
   url: string;
   created: string;
 }
-interface ForEpisodes {
+export interface ForEpisodes {
   id: number;
   name: string;
   air_date: string;
@@ -70,6 +70,7 @@ interface PostersState {
   characters: ForCharacters[];
   locations: ForLocations[];
   error: boolean;
+  character: ForCharacters | undefined;
 }
 
 const initialState: PostersState = {
@@ -80,13 +81,23 @@ const initialState: PostersState = {
   dataEpisodes: undefined,
   dataLocations: undefined,
   error: false,
+  character: undefined,
 };
 
 export const thunkGetCharacters = createAsyncThunk(
   "posters/getCharacters",
-  async () => {
+  async (page: string | undefined) => {
     const response = await axios.get<DataCharacters>(
-      `https://rickandmortyapi.com/api/character`
+      `https://rickandmortyapi.com/api/character${page ? `/?page=${page}` : ""}`
+    );
+    return response.data;
+  }
+);
+export const thunkGetCharacter = createAsyncThunk(
+  "poster/getCharacter",
+  async (id: string | undefined) => {
+    const response = await axios.get<ForCharacters>(
+      `https://rickandmortyapi.com/api/character${id ? `/${id}` : ""}`
     );
     return response.data;
   }
@@ -94,9 +105,9 @@ export const thunkGetCharacters = createAsyncThunk(
 
 export const thunkGetEpisodes = createAsyncThunk(
   "posters/getEpisodes",
-  async () => {
+  async (page: string | undefined) => {
     const response = await axios.get<DataEpisodes>(
-      `https://rickandmortyapi.com/api/episode`
+      `https://rickandmortyapi.com/api/episode${page ? `/?page=${page}` : ""}`
     );
     return response.data;
   }
@@ -104,9 +115,9 @@ export const thunkGetEpisodes = createAsyncThunk(
 
 export const thunkGetLocations = createAsyncThunk(
   "posters/getLocations",
-  async () => {
+  async (page: string | undefined) => {
     const response = await axios.get<DataLocations>(
-      `https://rickandmortyapi.com/api/location`
+      `https://rickandmortyapi.com/api/location${page ? `/?page=${page}` : ""}`
     );
     return response.data;
   }
@@ -137,6 +148,12 @@ export const postersSlice = createSlice({
       (state, action: PayloadAction<DataEpisodes>) => {
         state.dataEpisodes = action.payload;
         state.episodes = action.payload.results;
+      }
+    );
+    builder.addCase(
+      thunkGetCharacter.fulfilled,
+      (state, action: PayloadAction<ForCharacters>) => {
+        state.character = action.payload;
       }
     );
     builder.addCase(

@@ -18,12 +18,12 @@ const Footer = () => {
         <Link to="/characters" className={styles.statElement}>
           CHARACTERS: {countCharacters}
         </Link>
-        <a className={styles.statElement} href="#!">
+        <Link to="/locations" className={styles.statElement}>
           LOCATIONS: {countLocations}
-        </a>
-        <a className={styles.statElement} href="#!">
+        </Link>
+        <Link to="/episodes" className={styles.statElement}>
           EPISODES: {countEpisodes}
-        </a>
+        </Link>
       </div>
       <div className={styles.links}>
         <a className={styles.linkItem} href="#!">

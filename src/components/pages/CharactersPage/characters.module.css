@@ -31,8 +31,7 @@
     align-items: center;
     justify-content: center;
     width: 250px;
-    height: 270px;
-    margin-bottom: 1.5rem;
+    height: 300px;
 }
 
 .characterInfo{
@@ -58,3 +57,11 @@
     margin-left: 0.7rem;
     background-color: rgb(184, 3, 3);
 }
+
+.pagination{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+

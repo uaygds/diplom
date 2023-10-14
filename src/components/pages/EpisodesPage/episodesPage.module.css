@@ -1,0 +1,19 @@
+.episodePage{
+    padding: 1% 2%;
+    width: 100%;
+    height:473px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+
+.pagination{
+    width: 100%;
+    justify-content: center;
+    display: flex
+}
+
+li{
+    font-size: 1.1rem;
+}

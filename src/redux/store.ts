@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import posters from "./posters";
+import posters from "./postersRedux";
 
 export const store = configureStore({
   reducer: { posters },
