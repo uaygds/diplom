@@ -1,6 +1,6 @@
 import styles from "./footer.module.css";
 import { useAppSelector } from "../../redux/hook";
-import { Link } from "react-router-dom";
+import CustomLink from "../CustomLink/CustomLink";
 
 const Footer = () => {
   const countCharacters = useAppSelector(
@@ -15,28 +15,18 @@ const Footer = () => {
   return (
     <div className={styles.footer}>
       <div className={styles.stat}>
-        <Link to="/characters" className={styles.statElement}>
-          CHARACTERS: {countCharacters}
-        </Link>
-        <Link to="/locations" className={styles.statElement}>
-          LOCATIONS: {countLocations}
-        </Link>
-        <Link to="/episodes" className={styles.statElement}>
-          EPISODES: {countEpisodes}
-        </Link>
+        <CustomLink to="/characters">CHARACTERS: {countCharacters}</CustomLink>
+        <CustomLink to="/locations">LOCATIONS: {countLocations}</CustomLink>
+        <CustomLink to="/episodes">EPISODES: {countEpisodes}</CustomLink>
       </div>
       <div className={styles.links}>
-        <a className={styles.linkItem} href="#!">
-          git
-        </a>
-        <a className={styles.linkItem} href="#!">
-          support
-        </a>
+        <CustomLink to="">git</CustomLink>
+        <CustomLink to="">support</CustomLink>
       </div>
-      <a className={styles.author} href="#!">
+      <CustomLink to="">
         <span className={styles.by}>by</span>
         <span className={styles.authorName}> Nik Nikolaev</span>
-      </a>
+      </CustomLink>
     </div>
   );
 };

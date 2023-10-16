@@ -13,15 +13,20 @@ const Header = () => {
           <RickAndMortyMainIcon />
         </Link>
         <div className={styles.navMenu}>
-          <a className={styles.navElement} href="#!">
+          <Link className={styles.navElement} to="/episodes">
+            Episodes
+          </Link>
+          <Link className={styles.navElement} to="/characters">
+            Characters
+          </Link>
+          <Link className={styles.navElement} to="/locations">
+            Locations
+          </Link>
+          <Link className={styles.navElement} to="">
             About
-          </a>
-
-          <a className={styles.navElement} href="#!">
-            Favourites
-          </a>
-          <Button title="Sign In" />
+          </Link>
         </div>
+        <Button title="Sign In" />
       </div>
     </div>
   );

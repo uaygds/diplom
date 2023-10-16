@@ -15,6 +15,7 @@
     padding: 0px 1.5rem;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 
@@ -23,22 +24,33 @@
     text-decoration: none;
     color: #333333;
     transition: 0.12s;
+    font-weight: 700;
+
 }
 
 .navMenu {
     display: flex;
     align-items: center;
+    justify-content: space-around;
+    width: 100%;
 }
-
-.navElement:not(:last-child){
-    padding: 0px 1.5rem;
-    font-weight: 700;
-    font-size: 1.23rem;
-}
-
-
 
 
 .navElement:hover{
     color: #FF9800;
+}
+
+
+@media (max-width:700px){
+    .navElement:not(:last-child){
+        display: none;
+    }
+
+    .navElement{
+        margin-right: 15px;
+    }
+
+    .navMenu{
+        justify-content: flex-end;
+    }
 }

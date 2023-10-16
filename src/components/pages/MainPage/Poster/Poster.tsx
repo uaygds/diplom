@@ -41,9 +41,9 @@ const Poster = ({ character }: { character: ForCharacters }) => {
         </div>
         <div className={styles.info}>
           <div className={styles.description}>Last known location:</div>
-          <a href="#!" className={styles.location}>
+          <Link to="" className={styles.location}>
             {character.location.name}
-          </a>
+          </Link>
         </div>
         <div className={styles.info}>
           <div className={styles.description}>First seen in:</div>
