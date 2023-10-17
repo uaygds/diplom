@@ -86,9 +86,11 @@ const initialState: PostersState = {
 
 export const thunkGetCharacters = createAsyncThunk(
   "posters/getCharacters",
-  async (page: string | undefined) => {
+  async ({ page, name }: { page: string | null; name: string | null }) => {
     const response = await axios.get<DataCharacters>(
-      `https://rickandmortyapi.com/api/character${page ? `/?page=${page}` : ""}`
+      `https://rickandmortyapi.com/api/character${
+        page ? `/?page=${page}` : ""
+      }${name ? `&name=${name}` : ""}`
     );
     return response.data;
   }

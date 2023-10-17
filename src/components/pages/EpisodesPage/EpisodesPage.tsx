@@ -8,15 +8,15 @@ import {
 import styles from "./episodesPage.module.css";
 
 import Pagination from "../../Pagination/Pagination";
-import { usePageSearchParams } from "../../../hooks/usePageSearchParams";
+import { useCustomSearchParams } from "../../../hooks/useCustomSearchParams";
 import LoadingIndicator from "../../LoadingIndicator/LoadingIndicator";
 
 const EpisodesPage = () => {
-  const { page, setPage } = usePageSearchParams();
+  const { page, setPage } = useCustomSearchParams();
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(thunkGetCharacters());
+    dispatch(thunkGetCharacters({ page: "", search: "" }));
     dispatch(thunkGetEpisodes(page));
     dispatch(thunkGetLocations());
   }, [dispatch, page]);

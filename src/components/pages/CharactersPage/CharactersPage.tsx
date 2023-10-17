@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import styles from "./characters.module.css";
 import {
@@ -8,16 +8,24 @@ import {
 } from "../../../redux/postersRedux";
 import Pagination from "../../Pagination/Pagination";
 import LoadingIndicator from "../../LoadingIndicator/LoadingIndicator";
-import { usePageSearchParams } from "../../../hooks/usePageSearchParams";
-import { Link } from "react-router-dom";
+import { useCustomSearchParams } from "../../../hooks/useCustomSearchParams";
+import { Link, useSearchParams } from "react-router-dom";
+import Search from "../../Search/Search";
 const CharactersPage = () => {
-  const { page, setPage } = usePageSearchParams();
+  const [inputValue, setInputValue] = useState("");
+  const { page, setPage } = useCustomSearchParams();
+  const [params, setParams] = useSearchParams();
   const dispatch = useAppDispatch();
+
+  const handleSetParams = () => {};
+
   useEffect(() => {
-    dispatch(thunkGetCharacters(page));
+    dispatch(
+      thunkGetCharacters({ page: params.get("page"), name: params.get("name") })
+    );
     dispatch(thunkGetEpisodes());
     dispatch(thunkGetLocations());
-  }, [dispatch, page]);
+  }, [dispatch, params, page]);
   const characters = useAppSelector((store) => store.posters.characters);
 
   const pages = useAppSelector(
@@ -51,6 +59,15 @@ const CharactersPage = () => {
   });
   return (
     <>
+      <Search
+        placeholder="Character..."
+        value={inputValue}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          setParams({ page: page, name: inputValue });
+        }}
+      />
+      <div>{inputValue}</div>
       <div className={styles.characters}>{mapped}</div>
       <div className={styles.pagination}>
         <Pagination handleClick={setPage} countPages={pages ? pages : 1} />

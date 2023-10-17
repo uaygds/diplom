@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 interface ForPagination {
   countPages: number;
-  handleClick: (page: number) => void;
+  handleClick: (params: string) => void;
 }
 
 const Pagination = ({ countPages, handleClick }: ForPagination) => {
@@ -45,7 +45,7 @@ const Pagination = ({ countPages, handleClick }: ForPagination) => {
       <li
         className={styles.paginationItem}
         style={{ backgroundColor: currentPage == firstPage ? "#FF9800" : "" }}
-        onClick={() => handleClick(firstPage)}
+        onClick={() => handleClick(firstPage.toString())}
       >
         {firstPage}
       </li>
@@ -60,7 +60,7 @@ const Pagination = ({ countPages, handleClick }: ForPagination) => {
             className={styles.paginationItem}
             style={{ backgroundColor: currentPage == page ? "#FF9800" : "" }}
             key={page}
-            onClick={() => handleClick(page)}
+            onClick={() => handleClick(page.toString())}
           >
             {page}
           </li>
@@ -76,7 +76,7 @@ const Pagination = ({ countPages, handleClick }: ForPagination) => {
       <li
         className={styles.paginationItem}
         style={{ backgroundColor: currentPage == lastPage ? "#FF9800" : "" }}
-        onClick={() => handleClick(lastPage)}
+        onClick={() => handleClick(lastPage.toString())}
       >
         {lastPage}
       </li>
