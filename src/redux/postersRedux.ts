@@ -86,11 +86,9 @@ const initialState: PostersState = {
 
 export const thunkGetCharacters = createAsyncThunk(
   "posters/getCharacters",
-  async ({ page, name }: { page: string | null; name: string | null }) => {
+  async ({ params }: { params: URLSearchParams | undefined }) => {
     const response = await axios.get<DataCharacters>(
-      `https://rickandmortyapi.com/api/character${
-        page ? `/?page=${page}` : ""
-      }${name ? `&name=${name}` : ""}`
+      `https://rickandmortyapi.com/api/character/?${params}`
     );
     return response.data;
   }
@@ -107,9 +105,9 @@ export const thunkGetCharacter = createAsyncThunk(
 
 export const thunkGetEpisodes = createAsyncThunk(
   "posters/getEpisodes",
-  async (page: string | undefined) => {
+  async ({ params }: { params: URLSearchParams | undefined }) => {
     const response = await axios.get<DataEpisodes>(
-      `https://rickandmortyapi.com/api/episode${page ? `/?page=${page}` : ""}`
+      `https://rickandmortyapi.com/api/episode/?${params}`
     );
     return response.data;
   }
@@ -117,9 +115,9 @@ export const thunkGetEpisodes = createAsyncThunk(
 
 export const thunkGetLocations = createAsyncThunk(
   "posters/getLocations",
-  async (page: string | undefined) => {
+  async ({ params }: { params?: URLSearchParams | undefined }) => {
     const response = await axios.get<DataLocations>(
-      `https://rickandmortyapi.com/api/location${page ? `/?page=${page}` : ""}`
+      `https://rickandmortyapi.com/api/location/?${params}`
     );
     return response.data;
   }
