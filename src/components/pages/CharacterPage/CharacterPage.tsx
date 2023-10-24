@@ -2,21 +2,13 @@ import { useParams } from "react-router-dom";
 import styles from "./characterPage.module.css";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { useEffect } from "react";
-import {
-  thunkGetCharacter,
-  thunkGetCharacters,
-  thunkGetEpisodes,
-  thunkGetLocations,
-} from "../../../redux/postersRedux";
+import { thunkGetCharacter } from "../../../redux/postersRedux";
 import LoadingIndicator from "../../LoadingIndicator/LoadingIndicator";
 
 const CharacterPage = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(thunkGetCharacters());
-    dispatch(thunkGetEpisodes());
-    dispatch(thunkGetLocations());
     dispatch(thunkGetCharacter(id));
   }, [dispatch, id]);
 

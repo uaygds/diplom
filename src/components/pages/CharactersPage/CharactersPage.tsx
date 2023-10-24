@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import styles from "./charactersPage.module.css";
-import {
-  thunkGetCharacters,
-  thunkGetCharactersWithParams,
-  thunkGetEpisodes,
-  thunkGetLocations,
-} from "../../../redux/postersRedux";
+import { thunkGetCharactersWithParams } from "../../../redux/postersRedux";
 import Pagination from "../../Pagination/Pagination";
 import LoadingIndicator from "../../LoadingIndicator/LoadingIndicator";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Search from "../../Search/Search";
 import CustomInputAndLabel from "../../CustomInputAndLabel/CustomInputAndLabel";
 import ArrowButton from "../../svgComponents/ArrowButton/ArrowButton";
+import CharacterCard from "../../CharacterCard/CharacterCard";
 const CharactersPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [statusFilter, setStatusFilter] = useState(
@@ -83,17 +79,16 @@ const CharactersPage = () => {
   const [filterMenu, setFilterMenu] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>(name ? name : "");
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    setInputValue(name === null ? "" : name);
-    dispatch(thunkGetCharacters());
-    dispatch(thunkGetCharactersWithParams({ params: searchParams }));
-    dispatch(thunkGetEpisodes({ params: undefined }));
-    dispatch(thunkGetLocations({ params: undefined }));
-  }, [dispatch, searchParams, name]);
   const characters = useAppSelector(
     (store) => store.posters.charactersWithParams
   );
+
+  useEffect(() => {
+    setInputValue(name === null ? "" : name);
+
+    dispatch(thunkGetCharactersWithParams({ params: searchParams }));
+  }, [dispatch, searchParams, name]);
+
   const resetFilter = () => {
     setGenderFilter({
       genderFilterMale: false,
@@ -108,6 +103,7 @@ const CharactersPage = () => {
     });
     setSearchParams({});
   };
+
   const pages = useAppSelector(
     (store) => store.posters.dataCharactersWithParams?.info.pages
   );
@@ -116,28 +112,7 @@ const CharactersPage = () => {
   }
 
   const mappedCharacters = characters.map((character) => {
-    return (
-      <div className={styles.character} key={character.id}>
-        <img className={styles.characterImg} src={character.image} alt="" />
-        <div className={styles.characterInfo}>
-          <Link
-            className={styles.characterName}
-            to={`/character/${character.id}`}
-          >
-            {character.name}
-          </Link>
-          <div
-            className={
-              character.status === "Alive"
-                ? styles.statusIconAlive
-                : character.status === "Dead"
-                ? styles.statusIconDead
-                : styles.statusIconUnknown
-            }
-          ></div>
-        </div>
-      </div>
-    );
+    return <CharacterCard character={character} OnClick={() => {}} />;
   });
   return (
     <div>

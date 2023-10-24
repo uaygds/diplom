@@ -1,10 +1,6 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import {
-  thunkGetCharacters,
-  thunkGetEpisodes,
-  thunkGetLocations,
-} from "../../../redux/postersRedux";
+import { thunkGetEpisodes } from "../../../redux/postersRedux";
 import styles from "./episodesPage.module.css";
 
 import Pagination from "../../Pagination/Pagination";
@@ -16,9 +12,7 @@ const EpisodesPage = () => {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(thunkGetCharacters());
     dispatch(thunkGetEpisodes({ params: searchParams }));
-    dispatch(thunkGetLocations({ params: undefined }));
   }, [dispatch, searchParams]);
   const episodes = useAppSelector((store) => store.posters.episodes);
   const pages = useAppSelector(

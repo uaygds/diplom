@@ -27,6 +27,7 @@ export interface ForCharacters {
   episode: string[];
   url: string;
   created: string;
+  favor: false | true;
 }
 export interface ForEpisodes {
   id: number;
@@ -63,6 +64,7 @@ interface DataLocations {
 }
 
 interface PostersState {
+  favourites: ForCharacters[];
   dataCharacters: DataCharacters | undefined;
   dataCharactersWithParams: DataCharacters | undefined;
   dataEpisodes: DataEpisodes | undefined;
@@ -76,6 +78,7 @@ interface PostersState {
 }
 
 const initialState: PostersState = {
+  favourites: [],
   characters: [],
   episodes: [],
   locations: [],
@@ -182,7 +185,12 @@ export const postersSlice = createSlice({
       thunkGetCharactersWithParams.fulfilled,
       (state, action: PayloadAction<DataCharacters>) => {
         state.dataCharactersWithParams = action.payload;
-        state.charactersWithParams = action.payload.results;
+        state.charactersWithParams = [...action.payload.results].map(
+          (character) => {
+            character["favor"] = false;
+            return character;
+          }
+        );
       }
     );
   },
