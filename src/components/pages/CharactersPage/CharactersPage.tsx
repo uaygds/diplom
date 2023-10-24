@@ -9,6 +9,7 @@ import Search from "../../Search/Search";
 import CustomInputAndLabel from "../../CustomInputAndLabel/CustomInputAndLabel";
 import ArrowButton from "../../svgComponents/ArrowButton/ArrowButton";
 import CharacterCard from "../../CharacterCard/CharacterCard";
+import Button from "../../Button/Button";
 const CharactersPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [statusFilter, setStatusFilter] = useState(
@@ -112,7 +113,13 @@ const CharactersPage = () => {
   }
 
   const mappedCharacters = characters.map((character) => {
-    return <CharacterCard character={character} OnClick={() => {}} />;
+    return (
+      <CharacterCard
+        character={character}
+        OnClick={() => {}}
+        key={character.id}
+      />
+    );
   });
   return (
     <div>
@@ -126,7 +133,7 @@ const CharactersPage = () => {
         >
           <ArrowButton />
         </button>
-        <div className={styles.filterStatus}>
+        <div className={styles.filterItem}>
           <h1>Status:</h1>
           <div>
             <CustomInputAndLabel
@@ -180,7 +187,7 @@ const CharactersPage = () => {
             />
           </div>
         </div>
-        <div className={styles.filterStatus}>
+        <div className={styles.filterItem}>
           <h1>Gender:</h1>
           <div>
             <CustomInputAndLabel
@@ -255,13 +262,12 @@ const CharactersPage = () => {
             />
           </div>
         </div>
-        <button
+        <Button
+          title="Reset Filter"
           onClick={() => {
             resetFilter();
           }}
-        >
-          Reset filter
-        </button>
+        ></Button>
       </div>
       <Search
         placeholder="Character..."

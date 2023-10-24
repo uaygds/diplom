@@ -6,7 +6,7 @@ import CharactersPage from "./components/pages/CharactersPage/CharactersPage";
 import LocationsPage from "./components/pages/LocationsPage/LocationsPage";
 import EpisodesPage from "./components/pages/EpisodesPage/EpisodesPage";
 import CharacterPage from "./components/pages/CharacterPage/CharacterPage";
-import SignInPage from "./components/pages/SignInPage/SignInPage";
+import SignUpPage from "./components/pages/SignUpPage/SignUpPage";
 import { useAppDispatch, useAppSelector } from "./redux/hook";
 import { loadUsers } from "./redux/usersRedux";
 import { useEffect } from "react";
@@ -15,8 +15,8 @@ import {
   thunkGetEpisodes,
   thunkGetLocations,
 } from "./redux/postersRedux";
-import LogInPage from "./components/pages/LogInPage/LogInPage";
 import FavouritesPage from "./components/pages/FavoritesPage/FavoutiresPage";
+import LogInPage from "./components/pages/LogInPage/LogInPage";
 
 function App() {
   const usersData = localStorage.getItem("users");
@@ -42,8 +42,12 @@ function App() {
             <Route path="/locations" element={<LocationsPage />}></Route>
             <Route path="/episodes" element={<EpisodesPage />}></Route>
             <Route path="/character/:id" element={<CharacterPage />}></Route>
-            <Route path="/signin" element={<SignInPage />}></Route>
-            <Route path="/login" element={<LogInPage />}></Route>
+            <Route path="/signup" element={<SignUpPage />}></Route>
+            {loginCheck ? (
+              ""
+            ) : (
+              <Route path="/login" element={<LogInPage />}></Route>
+            )}
             {loginCheck ? (
               <Route path="/favourites" element={<FavouritesPage />}></Route>
             ) : (

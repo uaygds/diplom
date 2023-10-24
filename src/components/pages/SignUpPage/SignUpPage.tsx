@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import styles from "./signInPage.module.css";
+import styles from "./signUpPage.module.css";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { uploadUser } from "../../../redux/usersRedux";
@@ -131,13 +131,20 @@ const SignInPage = () => {
         )}
         <div>
           <label htmlFor="showpass">Показать пароль?</label>
-          <input type="checkbox" id="showpass" onClick={showPass} />
+          <input
+            className={styles.regInput}
+            type="checkbox"
+            id="showpass"
+            onClick={showPass}
+          />
         </div>
-        <button type="submit">submit</button>
+        <button className={styles.submitButton} type="submit">
+          Зарегистрироваться
+        </button>
       </form>
-      <span>
+      <div className={styles.toLoginIn}>
         U already have account? <Link to="/login">Log In</Link>
-      </span>
+      </div>
     </div>
   );
 };

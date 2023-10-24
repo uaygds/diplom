@@ -3,6 +3,7 @@ import styles from "./logInPage.module.css";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { loginUser } from "../../../redux/usersRedux";
+import { Link, useNavigate } from "react-router-dom";
 
 type LogInForm = {
   email: string;
@@ -12,6 +13,7 @@ type LogInForm = {
 const LogInPage = () => {
   const [showPassState, setShowPassState] = useState<boolean>(false);
 
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,6 +22,7 @@ const LogInPage = () => {
   const onSubmit: SubmitHandler<LogInForm> = (data: LogInForm) => {
     if (checkUser({ pass: data.password, email: data.email })) {
       dispatch(loginUser(true));
+      navigate("/");
     }
   };
 
@@ -87,8 +90,13 @@ const LogInPage = () => {
           <label htmlFor="showpass">Показать пароль?</label>
           <input type="checkbox" id="showpass" onClick={showPass} />
         </div>
-        <button type="submit">submit</button>
+        <button className={styles.submitButton} type="submit">
+          Войти
+        </button>
       </form>
+      <div className={styles.toLoginIn}>
+        U haven't account? <Link to="/signup">Sign In</Link>
+      </div>
     </div>
   );
 };
