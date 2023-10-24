@@ -58,10 +58,58 @@
     background-color: rgb(184, 3, 3);
 }
 
+.statusIconUnknown{
+    margin-top: 10px;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    margin-left: 0.7rem;
+    background-color: orange;
+}
+
 .pagination{
     width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 1rem;
+}
+
+.Filter{
+    background-color: rgba(222, 227, 232,.8);
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 200px;
+    height: 100%;
+    transition: 0.12s linear;
+}
+
+.filterStatus{
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.filterButton{
+    background: green;
+    position: relative;
+    top: 37px;
+    rotate: -90deg;
+    right: 110px;
+}
+.filterStatus label{
+    margin-right: 1rem;
+
+}
+
+.filterStatus div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 

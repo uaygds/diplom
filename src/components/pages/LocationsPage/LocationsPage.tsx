@@ -8,17 +8,17 @@ import {
 } from "../../../redux/postersRedux";
 import Pagination from "../../Pagination/Pagination";
 
-import { usePageSearchParams } from "../../../hooks/usePageSearchParams";
 import LoadingIndicator from "../../LoadingIndicator/LoadingIndicator";
+import { useSearchParams } from "react-router-dom";
 
 const LocationsPage = () => {
-  const { page, setPage } = usePageSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(thunkGetCharacters());
-    dispatch(thunkGetEpisodes());
-    dispatch(thunkGetLocations(page));
-  }, [dispatch, page]);
+    dispatch(thunkGetCharacters({ params: undefined }));
+    dispatch(thunkGetEpisodes({ params: undefined }));
+    dispatch(thunkGetLocations({ params: searchParams }));
+  }, [dispatch, searchParams]);
   const locations = useAppSelector((store) => store.posters.locations);
 
   const pages = useAppSelector(
@@ -37,7 +37,12 @@ const LocationsPage = () => {
     <div className={styles.locationPage}>
       <ul>{mapped}</ul>
       <div className={styles.pagination}>
-        <Pagination handleClick={setPage} countPages={pages ? pages : 1} />
+        <Pagination
+          handleClick={(e) => {
+            setSearchParams({ page: e.toString() });
+          }}
+          countPages={pages ? pages : 1}
+        />
       </div>
     </div>
   );

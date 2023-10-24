@@ -8,18 +8,18 @@ import {
 import styles from "./episodesPage.module.css";
 
 import Pagination from "../../Pagination/Pagination";
-import { usePageSearchParams } from "../../../hooks/usePageSearchParams";
 import LoadingIndicator from "../../LoadingIndicator/LoadingIndicator";
+import { useSearchParams } from "react-router-dom";
 
 const EpisodesPage = () => {
-  const { page, setPage } = usePageSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(thunkGetCharacters());
-    dispatch(thunkGetEpisodes(page));
-    dispatch(thunkGetLocations());
-  }, [dispatch, page]);
+    dispatch(thunkGetCharacters({ params: undefined }));
+    dispatch(thunkGetEpisodes({ params: searchParams }));
+    dispatch(thunkGetLocations({ params: undefined }));
+  }, [dispatch, searchParams]);
   const episodes = useAppSelector((store) => store.posters.episodes);
   const pages = useAppSelector(
     (store) => store.posters.dataEpisodes?.info.pages
@@ -34,7 +34,12 @@ const EpisodesPage = () => {
     <div className={styles.episodePage}>
       <ul>{mapped}</ul>
       <div className={styles.pagination}>
-        <Pagination handleClick={setPage} countPages={pages ? pages : 1} />
+        <Pagination
+          handleClick={(e) => {
+            setSearchParams({ page: e.toString() });
+          }}
+          countPages={pages ? pages : 1}
+        />
       </div>
     </div>
   );
