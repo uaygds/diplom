@@ -15,8 +15,8 @@ import {
   thunkGetEpisodes,
   thunkGetLocations,
 } from "./redux/postersRedux";
-import LogInPage from "./components/pages/LogInPage/LogInPage";
 import FavouritesPage from "./components/pages/FavoritesPage/FavoutiresPage";
+import LogInPage from "./components/pages/LogInPage/LogInPage";
 
 function App() {
   const usersData = localStorage.getItem("users");
@@ -43,7 +43,11 @@ function App() {
             <Route path="/episodes" element={<EpisodesPage />}></Route>
             <Route path="/character/:id" element={<CharacterPage />}></Route>
             <Route path="/signin" element={<SignInPage />}></Route>
-            <Route path="/login" element={<LogInPage />}></Route>
+            {loginCheck ? (
+              ""
+            ) : (
+              <Route path="/login" element={<LogInPage />}></Route>
+            )}
             {loginCheck ? (
               <Route path="/favourites" element={<FavouritesPage />}></Route>
             ) : (

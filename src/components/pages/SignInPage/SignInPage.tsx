@@ -131,13 +131,20 @@ const SignInPage = () => {
         )}
         <div>
           <label htmlFor="showpass">Показать пароль?</label>
-          <input type="checkbox" id="showpass" onClick={showPass} />
+          <input
+            className={styles.regInput}
+            type="checkbox"
+            id="showpass"
+            onClick={showPass}
+          />
         </div>
-        <button type="submit">submit</button>
+        <button className={styles.submitButton} type="submit">
+          Зарегистрироваться
+        </button>
       </form>
-      <span>
+      <div className={styles.toLoginIn}>
         U already have account? <Link to="/login">Log In</Link>
-      </span>
+      </div>
     </div>
   );
 };

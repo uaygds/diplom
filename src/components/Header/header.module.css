@@ -42,7 +42,7 @@
 
 
 @media (max-width:700px){
-    .navElement:not(:last-child){
+    .navElement:not(:nth-child(2)){
         display: none;
     }
 

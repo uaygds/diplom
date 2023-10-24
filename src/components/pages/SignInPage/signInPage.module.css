@@ -4,3 +4,40 @@
     align-items: center;
     flex-direction: column;
 }
+
+.toLoginIn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.submitButton{
+        background-color: white;
+        border-radius: 10px;
+        width: 120px;
+        height: 35px;
+        border: 1px solid #FF9800;
+        font-size: 0.8rem;
+        cursor: pointer;
+        font-weight: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.12s linear;
+    }
+    
+.submitButton:hover{
+    background-color: #FF9800;
+        color: white;
+    }
+
+
+    .regInput{
+        margin-right: 10px;
+    }
+
+    input{
+        margin-bottom: 10px;
+    }
+
+

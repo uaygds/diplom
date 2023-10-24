@@ -20,10 +20,10 @@ const Footer = () => {
         <CustomLink to="/episodes">EPISODES: {countEpisodes}</CustomLink>
       </div>
       <div className={styles.links}>
-        <CustomLink to="">git</CustomLink>
-        <CustomLink to="">support</CustomLink>
+        <CustomLink to="https://github.com/uaygds/diplom">git</CustomLink>
+        <CustomLink to="https://t.me/smillingknight">support</CustomLink>
       </div>
-      <CustomLink to="">
+      <CustomLink to="https://t.me/smillingknight">
         <span className={styles.by}>by</span>
         <span className={styles.authorName}> Nik Nikolaev</span>
       </CustomLink>

@@ -11,14 +11,7 @@ const CharacterCard = ({
 }) => {
   return (
     <>
-      <div
-        className={styles.character}
-        key={character.id}
-        style={{
-          borderRadius: "1rem",
-        }}
-        onClick={OnClick}
-      >
+      <div className={styles.character} key={character.id} onClick={OnClick}>
         <img className={styles.characterImg} src={character.image} alt="" />
         <div className={styles.characterInfo}>
           <Link
