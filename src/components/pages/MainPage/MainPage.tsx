@@ -1,24 +1,11 @@
 import styles from "./mainpage.module.css";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import {
-  ForCharacters,
-  thunkGetCharacters,
-  thunkGetEpisodes,
-  thunkGetLocations,
-} from "../../../redux/postersRedux";
-import { useEffect } from "react";
+import { useAppSelector } from "../../../redux/hook";
+import { ForCharacters } from "../../../redux/postersRedux";
 import LoadingIndicator from "../../LoadingIndicator/LoadingIndicator";
 import Poster from "./Poster/Poster";
 import RickAndMortyBackgroundImage from "../../svgComponents/RickAndMortyBackgroundImage";
 
 const MainPage = () => {
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(thunkGetCharacters()); //чтобы при переходе на главную всегда подругажались персонажи на мэйн
-    dispatch(thunkGetEpisodes());
-    dispatch(thunkGetLocations());
-  }, [dispatch]);
-
   const characters = useAppSelector((store) => store.posters.characters);
   const episodes = useAppSelector((store) => store.posters.episodes);
 

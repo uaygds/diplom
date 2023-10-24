@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
 import styles from "../Header/header.module.css";
 import RickAndMortyMainIcon from "../svgComponents/RickAndMortyMainIcon";
+import { useAppSelector } from "../../redux/hook";
 
 const Header = () => {
-  console.log("hd");
+  const navigate = useNavigate();
+  const redirect = () => {
+    navigate("/signin");
+  };
+
+  const checkLogin = useAppSelector((store) => store.users.login);
 
   return (
     <div className={styles.header}>
@@ -22,11 +28,27 @@ const Header = () => {
           <Link className={styles.navElement} to="/locations">
             Locations
           </Link>
-          <Link className={styles.navElement} to="">
-            About
-          </Link>
+          {checkLogin ? (
+            <Link className={styles.navElement} to="/favourites">
+              Favourites
+            </Link>
+          ) : null}
         </div>
-        <Button title="Sign In" />
+        {checkLogin ? (
+          <Button
+            onClick={() => {
+              redirect();
+            }}
+            title="Log Out"
+          />
+        ) : (
+          <Button
+            onClick={() => {
+              redirect();
+            }}
+            title="Sign In"
+          />
+        )}
       </div>
     </div>
   );

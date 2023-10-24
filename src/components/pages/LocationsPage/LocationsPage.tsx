@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import styles from "./locations.module.css";
-import {
-  thunkGetCharacters,
-  thunkGetEpisodes,
-  thunkGetLocations,
-} from "../../../redux/postersRedux";
+import { thunkGetLocations } from "../../../redux/postersRedux";
 import Pagination from "../../Pagination/Pagination";
 
 import LoadingIndicator from "../../LoadingIndicator/LoadingIndicator";
@@ -15,8 +11,6 @@ const LocationsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(thunkGetCharacters({ params: undefined }));
-    dispatch(thunkGetEpisodes({ params: undefined }));
     dispatch(thunkGetLocations({ params: searchParams }));
   }, [dispatch, searchParams]);
   const locations = useAppSelector((store) => store.posters.locations);

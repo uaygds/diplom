@@ -16,7 +16,9 @@ const Pagination = ({ countPages, handleClick }: ForPagination) => {
   for (let i = 1; i < countPages - 1; i++) {
     pageArray.push(i + 1);
   }
-  const lastPage = pageArray.length + 2;
+
+  const lastPage = countPages;
+
   const shouldShow = (page: number) => {
     if (Number(page) - currentPage < 3 && Number(page) - currentPage >= 0) {
       return true;
@@ -73,13 +75,15 @@ const Pagination = ({ countPages, handleClick }: ForPagination) => {
       ) : (
         ""
       )}
-      <li
-        className={styles.paginationItem}
-        style={{ backgroundColor: currentPage == lastPage ? "#FF9800" : "" }}
-        onClick={() => handleClick(lastPage)}
-      >
-        {lastPage}
-      </li>
+      {countPages == 1 ? undefined : (
+        <li
+          className={styles.paginationItem}
+          style={{ backgroundColor: currentPage == lastPage ? "#FF9800" : "" }}
+          onClick={() => handleClick(lastPage)}
+        >
+          {countPages == 1 ? undefined : lastPage}
+        </li>
+      )}
     </ul>
   );
 };

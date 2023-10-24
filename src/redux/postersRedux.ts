@@ -27,6 +27,7 @@ export interface ForCharacters {
   episode: string[];
   url: string;
   created: string;
+  favor: false | true;
 }
 export interface ForEpisodes {
   id: number;
@@ -63,21 +64,27 @@ interface DataLocations {
 }
 
 interface PostersState {
+  favourites: ForCharacters[];
   dataCharacters: DataCharacters | undefined;
+  dataCharactersWithParams: DataCharacters | undefined;
   dataEpisodes: DataEpisodes | undefined;
   dataLocations: DataLocations | undefined;
   episodes: ForEpisodes[];
   characters: ForCharacters[];
+  charactersWithParams: ForCharacters[];
   locations: ForLocations[];
   error: boolean;
   character: ForCharacters | undefined;
 }
 
 const initialState: PostersState = {
+  favourites: [],
   characters: [],
   episodes: [],
   locations: [],
   dataCharacters: undefined,
+  dataCharactersWithParams: undefined,
+  charactersWithParams: [],
   dataEpisodes: undefined,
   dataLocations: undefined,
   error: false,
@@ -86,6 +93,16 @@ const initialState: PostersState = {
 
 export const thunkGetCharacters = createAsyncThunk(
   "posters/getCharacters",
+  async () => {
+    const response = await axios.get<DataCharacters>(
+      `https://rickandmortyapi.com/api/character`
+    );
+    return response.data;
+  }
+);
+
+export const thunkGetCharactersWithParams = createAsyncThunk(
+  "posters/getCharactersWithParams",
   async ({ params }: { params: URLSearchParams | undefined }) => {
     const response = await axios.get<DataCharacters>(
       `https://rickandmortyapi.com/api/character/?${params}`
@@ -93,6 +110,7 @@ export const thunkGetCharacters = createAsyncThunk(
     return response.data;
   }
 );
+
 export const thunkGetCharacter = createAsyncThunk(
   "poster/getCharacter",
   async (id: string | undefined) => {
@@ -161,6 +179,18 @@ export const postersSlice = createSlice({
       (state, action: PayloadAction<DataCharacters>) => {
         state.dataCharacters = action.payload;
         state.characters = action.payload.results;
+      }
+    );
+    builder.addCase(
+      thunkGetCharactersWithParams.fulfilled,
+      (state, action: PayloadAction<DataCharacters>) => {
+        state.dataCharactersWithParams = action.payload;
+        state.charactersWithParams = [...action.payload.results].map(
+          (character) => {
+            character["favor"] = false;
+            return character;
+          }
+        );
       }
     );
   },
