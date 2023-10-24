@@ -1,5 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import styles from "./signInPage.module.css";
+import styles from "./signUpPage.module.css";
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { uploadUser } from "../../../redux/usersRedux";

@@ -6,8 +6,8 @@ import { useAppSelector } from "../../redux/hook";
 
 const Header = () => {
   const navigate = useNavigate();
-  const redirect = () => {
-    navigate("/signin");
+  const redirect = (to: string) => {
+    navigate(`${to}`);
   };
 
   const checkLogin = useAppSelector((store) => store.users.login);
@@ -37,16 +37,16 @@ const Header = () => {
         {checkLogin ? (
           <Button
             onClick={() => {
-              redirect();
+              redirect("/");
             }}
             title="Log Out"
           />
         ) : (
           <Button
             onClick={() => {
-              redirect();
+              redirect("/signup");
             }}
-            title="Sign In"
+            title="Sign Up"
           />
         )}
       </div>

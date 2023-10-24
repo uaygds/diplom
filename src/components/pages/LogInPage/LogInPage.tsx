@@ -95,7 +95,7 @@ const LogInPage = () => {
         </button>
       </form>
       <div className={styles.toLoginIn}>
-        U haven't account? <Link to="/signIn">Sign In</Link>
+        U haven't account? <Link to="/signup">Sign In</Link>
       </div>
     </div>
   );
