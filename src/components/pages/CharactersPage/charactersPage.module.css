@@ -5,11 +5,15 @@
 }
 
 .characterName{
+
     margin-top: 0.5rem;
     font-size: 1.2rem;
     font-weight: 600;
     color: black;
     transition: 0.12s linear;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .characterName:hover{
@@ -18,11 +22,12 @@
 
 .characters{
     margin-top: 1.5rem;
-    gap: 2.5%;
+    gap: 1.5%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+
 }
 
 .character{
@@ -32,15 +37,21 @@
     justify-content: center;
     width: 250px;
     height: 300px;
+    margin-bottom: 20px;
 }
 
 .characterInfo{
     display: flex;
     align-items: center;
+    height: 50px;
+
 }
 
 
 .statusIconAlive{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 10px;
     width: 0.5rem;
     height: 0.5rem;
@@ -76,7 +87,7 @@
 
 .Filter{
     background-color: rgba(222, 227, 232,.8);
-    position: absolute;
+    position: fixed;
     right: 0;
     top: 0;
     display: flex;
@@ -84,32 +95,20 @@
     align-items: center;
     flex-direction: column;
     width: 200px;
-    height: 100%;
+    height: 100vh;
     transition: 0.12s linear;
 }
 
-.filterStatus{
-    display: flex;
-    flex-direction: column;
-    
 
-}
 
 .filterButton{
-    background: green;
-    position: relative;
-    top: 37px;
+    background: none;
+    position: fixed;
+    border: none;
+    top: 50%;
     rotate: -90deg;
-    right: 110px;
-}
-.filterStatus label{
-    margin-right: 1rem;
+    right: 0px;
+    cursor: pointer;
 
-}
-
-.filterStatus div{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
 }
 

@@ -1,0 +1,18 @@
+.filterStatus{
+    display: flex;
+    justify-content: space-between;
+    
+
+}
+
+
+.filterStatus label{
+    margin-right: 0.5rem;
+    cursor: pointer;
+
+}
+
+.filterStatus input{
+    cursor: pointer;
+}
+

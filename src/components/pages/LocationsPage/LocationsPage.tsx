@@ -15,7 +15,7 @@ const LocationsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(thunkGetCharacters({ params: undefined }));
+    dispatch(thunkGetCharacters());
     dispatch(thunkGetEpisodes({ params: undefined }));
     dispatch(thunkGetLocations({ params: searchParams }));
   }, [dispatch, searchParams]);

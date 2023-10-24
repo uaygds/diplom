@@ -16,7 +16,7 @@ const EpisodesPage = () => {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(thunkGetCharacters({ params: undefined }));
+    dispatch(thunkGetCharacters());
     dispatch(thunkGetEpisodes({ params: searchParams }));
     dispatch(thunkGetLocations({ params: undefined }));
   }, [dispatch, searchParams]);

@@ -1,8 +1,9 @@
-import { ChangeEvent, RefObject, createRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import styles from "./characters.module.css";
+import styles from "./charactersPage.module.css";
 import {
   thunkGetCharacters,
+  thunkGetCharactersWithParams,
   thunkGetEpisodes,
   thunkGetLocations,
 } from "../../../redux/postersRedux";
@@ -10,47 +11,111 @@ import Pagination from "../../Pagination/Pagination";
 import LoadingIndicator from "../../LoadingIndicator/LoadingIndicator";
 import { Link, useSearchParams } from "react-router-dom";
 import Search from "../../Search/Search";
+import CustomInputAndLabel from "../../CustomInputAndLabel/CustomInputAndLabel";
+import ArrowButton from "../../svgComponents/ArrowButton/ArrowButton";
 const CharactersPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [cb, setCB] = useState(
+  const [statusFilter, setStatusFilter] = useState(
     searchParams.get("status") === "alive"
-      ? { cb1: true, cb2: false, cb3: false }
+      ? {
+          statusFilterAlive: true,
+          statusFilterDead: false,
+          statusFilterUnknown: false,
+        }
       : searchParams.get("status") === "dead"
-      ? { cb1: false, cb2: true, cb3: false }
+      ? {
+          statusFilterAlive: false,
+          statusFilterDead: true,
+          statusFilterUnknown: false,
+        }
       : searchParams.get("status") === "unknown"
-      ? { cb1: false, cb2: false, cb3: true }
-      : { cb1: false, cb2: false, cb3: false }
+      ? {
+          statusFilterAlive: false,
+          statusFilterDead: false,
+          statusFilterUnknown: true,
+        }
+      : {
+          statusFilterAlive: false,
+          statusFilterDead: false,
+          statusFilterUnknown: false,
+        }
   );
-  const name = searchParams.get("name");
-  const [tab, setTab] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>(name ? name : "");
-  const menu = createRef<HTMLDivElement>();
-  const button = createRef<HTMLButtonElement>();
-  const dispatch = useAppDispatch();
+  const [genderFilter, setGenderFilter] = useState(
+    searchParams.get("gender") === "male"
+      ? {
+          genderFilterMale: true,
+          genderFilterFemale: false,
+          genderFilterGenderless: false,
+          genderFilterUnknown: false,
+        }
+      : searchParams.get("gender") === "female"
+      ? {
+          genderFilterMale: false,
+          genderFilterFemale: true,
+          genderFilterGenderless: false,
+          genderFilterUnknown: false,
+        }
+      : searchParams.get("gender") === "genderless"
+      ? {
+          genderFilterMale: false,
+          genderFilterFemale: false,
+          genderFilterGenderless: true,
+          genderFilterUnknown: false,
+        }
+      : searchParams.get("gender") === "unknown"
+      ? {
+          genderFilterMale: false,
+          genderFilterFemale: false,
+          genderFilterGenderless: false,
+          genderFilterUnknown: true,
+        }
+      : {
+          genderFilterMale: false,
+          genderFilterFemale: false,
+          genderFilterGenderless: false,
+          genderFilterUnknown: false,
+        }
+  );
 
-  const closeMenu = (e: ChangeEvent<RefObject<HTMLButtonElement>>) => {
-    //исправить типиздацию хз как
-    if (e.target !== menu && e.target !== button.current) {
-      setTab(false);
-    }
-  };
+  const name = searchParams.get("name");
+  const status = searchParams.get("status");
+  const gender = searchParams.get("gender");
+  const [filterMenu, setFilterMenu] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>(name ? name : "");
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setInputValue(name === null ? "" : name);
-    dispatch(thunkGetCharacters({ params: searchParams }));
+    dispatch(thunkGetCharacters());
+    dispatch(thunkGetCharactersWithParams({ params: searchParams }));
     dispatch(thunkGetEpisodes({ params: undefined }));
     dispatch(thunkGetLocations({ params: undefined }));
   }, [dispatch, searchParams, name]);
-  const characters = useAppSelector((store) => store.posters.characters);
-
+  const characters = useAppSelector(
+    (store) => store.posters.charactersWithParams
+  );
+  const resetFilter = () => {
+    setGenderFilter({
+      genderFilterMale: false,
+      genderFilterFemale: false,
+      genderFilterGenderless: false,
+      genderFilterUnknown: false,
+    });
+    setStatusFilter({
+      statusFilterAlive: false,
+      statusFilterDead: false,
+      statusFilterUnknown: false,
+    });
+    setSearchParams({});
+  };
   const pages = useAppSelector(
-    (store) => store.posters.dataCharacters?.info.pages
+    (store) => store.posters.dataCharactersWithParams?.info.pages
   );
   if (!characters.length) {
     return <LoadingIndicator />;
   }
 
-  const mapped = characters.map((character) => {
+  const mappedCharacters = characters.map((character) => {
     return (
       <div className={styles.character} key={character.id}>
         <img className={styles.characterImg} src={character.image} alt="" />
@@ -61,7 +126,7 @@ const CharactersPage = () => {
           >
             {character.name}
           </Link>
-          <span
+          <div
             className={
               character.status === "Alive"
                 ? styles.statusIconAlive
@@ -69,69 +134,159 @@ const CharactersPage = () => {
                 ? styles.statusIconDead
                 : styles.statusIconUnknown
             }
-          ></span>
+          ></div>
         </div>
       </div>
     );
   });
   return (
-    <div onClick={closeMenu}>
+    <div>
       <div
         className={styles.Filter}
-        ref={menu}
-        style={{ right: tab ? "0px" : "-200px" }}
+        style={{ right: filterMenu ? "0px" : "-200px" }}
       >
         <button
           className={styles.filterButton}
-          ref={button}
-          onClick={() => setTab(!tab)}
+          onClick={() => setFilterMenu(!filterMenu)}
         >
-          open
+          <ArrowButton />
         </button>
         <div className={styles.filterStatus}>
+          <h1>Status:</h1>
           <div>
-            {" "}
-            <label htmlFor="alive">Alive</label>
-            <input
+            <CustomInputAndLabel
+              title="Alive"
               id="alive"
-              type="radio"
               name="status"
-              checked={cb.cb1}
+              checked={statusFilter.statusFilterAlive}
               onChange={() => {
-                setCB({ cb1: true, cb2: false, cb3: false });
-                setSearchParams({ status: cb.cb1 ? "" : "alive" });
+                setStatusFilter({
+                  statusFilterAlive: true,
+                  statusFilterDead: false,
+                  statusFilterUnknown: false,
+                });
+                searchParams.set("status", "alive");
+                setSearchParams(searchParams);
               }}
             />
           </div>
           <div>
-            {" "}
-            <label htmlFor="dead">Dead</label>
-            <input
-              type="radio"
-              name="status"
+            <CustomInputAndLabel
+              title="Dead"
               id="dead"
-              checked={cb.cb2}
+              name="status"
+              checked={statusFilter.statusFilterDead}
               onChange={() => {
-                setCB({ cb1: false, cb2: true, cb3: false });
-                setSearchParams({ status: cb.cb2 ? "" : "dead" });
+                setStatusFilter({
+                  statusFilterAlive: false,
+                  statusFilterDead: true,
+                  statusFilterUnknown: false,
+                });
+                searchParams.set("status", "dead");
+                setSearchParams(searchParams);
               }}
             />
           </div>
           <div>
-            {" "}
-            <label htmlFor="unknown">Unknown</label>
-            <input
+            <CustomInputAndLabel
+              title="Unknown"
               id="unknown"
-              type="radio"
               name="status"
-              checked={cb.cb3}
+              checked={statusFilter.statusFilterUnknown}
               onChange={() => {
-                setCB({ cb1: false, cb2: false, cb3: true });
-                setSearchParams({ status: cb.cb3 ? "" : "unknown" });
+                setStatusFilter({
+                  statusFilterAlive: false,
+                  statusFilterDead: false,
+                  statusFilterUnknown: true,
+                });
+                searchParams.set("status", "unknown");
+                setSearchParams(searchParams);
               }}
             />
           </div>
         </div>
+        <div className={styles.filterStatus}>
+          <h1>Gender:</h1>
+          <div>
+            <CustomInputAndLabel
+              title="Male"
+              id="male"
+              name="gender"
+              checked={genderFilter.genderFilterMale}
+              onChange={() => {
+                setGenderFilter({
+                  genderFilterMale: true,
+                  genderFilterFemale: false,
+                  genderFilterGenderless: false,
+                  genderFilterUnknown: false,
+                });
+                searchParams.set("gender", "male");
+                setSearchParams(searchParams);
+              }}
+            />
+          </div>
+          <div>
+            <CustomInputAndLabel
+              title="Female"
+              id="female"
+              name="gender"
+              checked={genderFilter.genderFilterFemale}
+              onChange={() => {
+                setGenderFilter({
+                  genderFilterMale: false,
+                  genderFilterFemale: true,
+                  genderFilterGenderless: false,
+                  genderFilterUnknown: false,
+                });
+                searchParams.set("gender", "female");
+                setSearchParams(searchParams);
+              }}
+            />
+          </div>
+          <div>
+            <CustomInputAndLabel
+              title="Genderless"
+              id="genderless"
+              name="gender"
+              checked={genderFilter.genderFilterGenderless}
+              onChange={() => {
+                setGenderFilter({
+                  genderFilterMale: false,
+                  genderFilterFemale: false,
+                  genderFilterGenderless: true,
+                  genderFilterUnknown: false,
+                });
+                searchParams.set("gender", "genderless");
+                setSearchParams(searchParams);
+              }}
+            />
+          </div>
+          <div>
+            <CustomInputAndLabel
+              title="Unknown"
+              id="unknown"
+              name="gender"
+              checked={genderFilter.genderFilterUnknown}
+              onChange={() => {
+                setGenderFilter({
+                  genderFilterMale: false,
+                  genderFilterFemale: false,
+                  genderFilterGenderless: false,
+                  genderFilterUnknown: true,
+                });
+                searchParams.set("gender", "unknown");
+                setSearchParams(searchParams);
+              }}
+            />
+          </div>
+        </div>
+        <button
+          onClick={() => {
+            resetFilter();
+          }}
+        >
+          Reset filter
+        </button>
       </div>
       <Search
         placeholder="Character..."
@@ -143,15 +298,15 @@ const CharactersPage = () => {
           );
         }}
       />
-      <div className={styles.characters}>{mapped}</div>
+      <div className={styles.characters}>{mappedCharacters}</div>
       <div className={styles.pagination}>
         <Pagination
           handleClick={(page) => {
-            setSearchParams(
-              name
-                ? { page: page.toString(), name: name }
-                : { page: page.toString() }
-            );
+            searchParams.set("page", page.toString());
+            name ? searchParams.set("name", name) : "";
+            gender ? searchParams.set("gender", gender) : "";
+            status ? searchParams.set("status", status) : "";
+            setSearchParams(searchParams);
           }}
           countPages={pages ? pages : 1}
         />

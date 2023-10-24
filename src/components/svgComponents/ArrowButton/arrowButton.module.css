@@ -1,0 +1,38 @@
+.svgButton {
+    animation-name: pulse;
+
+animation-duration: 3s;
+    animation-iteration-count: infinite;
+    cursor: pointer;
+}
+
+@keyframes  pulse {
+
+	0% 
+	{
+		scale: 1;
+	}
+    5%{
+        scale: 2;
+    }
+    10%{
+        scale: 1;
+    }
+    15%
+    {
+        scale: 2;
+    }
+    20%{
+        scale:1
+    }
+    25%
+    {
+        scale: 2;
+    }
+    30%{
+        scale:1
+    }
+
+  
+
+}
