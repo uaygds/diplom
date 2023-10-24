@@ -1,0 +1,41 @@
+.pagination{
+    display: flex;
+    list-style-type: none;
+}
+
+.paginationItem:not(:last-child){
+    margin-right: 5px;
+}
+
+.paginationItem{
+    cursor: pointer;
+    transition: 0.12s linear;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    border: #FF9800 1px solid;
+    align-items: flex;
+}
+
+.paginationItem:hover{
+    background-color: gray;
+}
+
+.firstPageSpan{
+    margin-right: 4px;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.lastPageSpan{
+    margin-right: 4px;
+    font-size: 1.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}

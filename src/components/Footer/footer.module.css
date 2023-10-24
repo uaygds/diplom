@@ -1,0 +1,102 @@
+.footer {
+    padding: 50px 0;
+    min-height: 120px;
+    width: 100%;
+
+    font-size: 1rem;
+
+    color: rgb(158, 158, 158);
+    background-color: black;
+
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.stat {
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+    justify-content: center;
+    gap: 1.5%;
+    
+}
+
+.statElement{
+    color: rgb(158, 158, 158);
+    text-decoration: none;
+    transition: 0.1s linear;
+}
+
+.statElement:hover{
+    color: #FF9800;
+}
+
+.linkItem{
+    color: rgb(158, 158, 158);
+    text-decoration: none;
+    transition: 0.1s linear;
+}
+
+.linkItem:hover{
+    color: #FF9800;
+}
+
+.linkItem:not(:last-child){
+    margin-right: 10px;
+}
+
+.links{
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 1.5%;
+}
+
+.statElement:not(:last-child){
+    margin-right: 30px;
+}
+
+.author{
+    text-decoration: none;
+}
+
+.authorName{
+    position: relative;
+    color: white;
+    transform: 0.1s linear;
+
+}
+
+.by {
+    color: rgb(158, 158, 158);
+
+}
+
+.authorName::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    background-color: #FF9800;
+    height: 1px;
+    left: 0;
+    bottom:-2px;
+    transition: color 0.1s linear;
+}
+
+.authorName:hover.authorName::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    background-color: #FF9800;
+    height: 0px;
+    left: 0;
+    bottom:-2px;
+}
+
+.authorName:hover{
+    color: #FF9800;
+}

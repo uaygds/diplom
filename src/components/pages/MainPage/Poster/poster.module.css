@@ -1,0 +1,197 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainUp{
+    width: 100%;
+    position: relative;
+    height: calc(50vh - 60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mainImage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.title{
+    position: relative;
+}
+
+.title{
+    display: flex;
+    align-items: center;
+    color: #202329;
+    font-size: 7rem;
+    font-weight: 900;
+    text-align: center;
+    z-index: 1;
+    word-wrap: break-word;
+}
+
+
+.title:hover{
+    text-decoration: underline;
+}
+
+
+
+.mainDown{
+    width: 100%;
+    background-color: rgb(39, 43, 51);
+    padding: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center ;
+    gap: 2.5%
+
+}
+
+.poster {
+    margin-bottom: 1.5rem;
+    color: white;
+    overflow: hidden;
+    width: 600px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(60, 62, 68);
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.posterImg{
+    width: 50%;
+    height: 100%;
+
+}
+
+.imgItem{
+    width: 100%;
+    height: 100%;
+    object-position: center center;
+    object-fit: cover;
+    transition: 0.5s linear;
+}
+
+
+.posterInfo{
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    flex: 3 1 0%;
+
+
+
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 1 0%;
+    margin-top: 1.3rem;
+
+}
+.info:first-child{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1 1 0%;
+    margin-top: 0;
+
+}
+
+.name{
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.status{
+    font-weight: 500;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.info:last-child{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    flex: 1 1 0%;
+    margin-top: 1.3rem;
+}
+
+.description {
+    color: rgb(158, 158, 158);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.poster a{
+    color: white;
+    opacity: 0.1s linear;
+}
+
+.poster a:hover{
+    color: #FF9800;
+}
+
+.statusIconAlive{
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    margin-right: 0.7rem;
+    background-color: rgb(3, 184, 3); 
+}
+
+.statusIconDead{
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    margin-right: 0.7rem;
+    background-color: rgb(184, 3, 3);
+}
+
+@media(max-width:800px){
+    .title{
+        font-size: 5rem;
+    }
+}
+
+@media(max-width:650px){
+    .poster{
+        flex-direction: column;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        
+    }
+    .posterInfo{
+        width: 100%;
+        height: 120px;
+        
+
+    }
+    .posterImg{
+        width: 100%;
+    }
+    .imgItem{
+        height: 300px;
+
+    }
+
+    .title{
+        font-size: 4rem;
+    }
+}
